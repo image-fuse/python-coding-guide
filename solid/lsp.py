@@ -1,10 +1,26 @@
-# Objects should be replaceable by their subtypes without altering how the program works.
-
 class Account:
-    def __init__(self, balance):
+    def __init__(self, balance: float):
+        """
+        Initialize an Account object.
+
+        Parameters:
+        balance (float): The initial account balance.
+
+        Returns:
+        None
+        """
         self.balance = balance
 
-    def withdraw(self, amount):
+    def withdraw(self, amount: float) -> None:
+        """
+        Withdraw a specified amount from the account.
+
+        Parameters:
+        amount (float): The amount to be withdrawn.
+
+        Returns:
+        None
+        """
         if amount <= self.balance:
             self.balance -= amount
             print(f"Withdrew ${amount}. Remaining balance: ${self.balance}")
@@ -12,21 +28,52 @@ class Account:
             print("Insufficient funds!")
 
 class SavingsAccount(Account):
+    """
+    Subtype of Account representing a savings account.
+    """
     pass
 
 class CheckingAccount(Account):
-    def __init__(self, balance, overdraft_limit):
+    def __init__(self, balance: float, overdraft_limit: float):
+        """
+        Initialize a CheckingAccount object.
+
+        Parameters:
+        balance (float): The initial account balance.
+        overdraft_limit (float): The overdraft limit for the checking account.
+
+        Returns:
+        None
+        """
         super().__init__(balance)
         self.overdraft_limit = overdraft_limit
 
-    def withdraw(self, amount):
+    def withdraw(self, amount: float) -> None:
+        """
+        Withdraw a specified amount from the checking account.
+
+        Parameters:
+        amount (float): The amount to be withdrawn.
+
+        Returns:
+        None
+        """
         if amount <= self.balance + self.overdraft_limit:
             self.balance -= amount
             print(f"Withdrew ${amount}. Remaining balance: ${self.balance}")
         else:
             print("Exceeds overdraft limit or insufficient funds!")
 
-def perform_bank_actions(account):
+def perform_bank_actions(account: Account) -> None:
+    """
+    Perform a series of bank actions on an account.
+
+    Parameters:
+    account (Account): The account on which actions will be performed.
+
+    Returns:
+    None
+    """
     account.withdraw(100)
     account.withdraw(200)
     account.withdraw(500)
