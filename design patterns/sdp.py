@@ -1,24 +1,41 @@
+"""
+This script demonstrates the Singleton Design Pattern for ConfigurationManager.
+"""
 class ConfigurationManager:
+    """
+    Singleton class for managing configuration settings.
+    """
     _instance = None
-    
+
     def __new__(cls):
         if cls._instance is None:
             cls._instance = super(ConfigurationManager, cls).__new__(cls)
             cls._instance.load_config()
         return cls._instance
-    
+
     def load_config(self):
-        # Simulate loading configuration from a file
+        """
+        Load configuration settings from a file.
+        """
         self.config = {}
-        with open('config.txt', 'r') as file:
+        with open('config.txt', 'r', encoding='utf-8') as file:
             lines = file.readlines()
             for line in lines:
                 key, value = line.strip().split('=')
                 self.config[key] = value
-    
+
     def get_config(self, key):
+        """
+        Get a configuration setting based on the provided key.
+
+        Parameters:
+        key (str): The key of the configuration setting.
+
+        Returns:
+        str: The value of the configuration setting.
+        """
         return self.config.get(key)
-    
+
 # Demonstration
 config_manager1 = ConfigurationManager()
 config_manager2 = ConfigurationManager()
